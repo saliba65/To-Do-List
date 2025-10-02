@@ -5,7 +5,6 @@ export default function Hacktober() {
     <div>
       <label>
         <p>oi</p>
-        console.log('teste');
       </label>
     </div>
   );
