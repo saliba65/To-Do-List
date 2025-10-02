@@ -8,14 +8,11 @@ function App() {
   const [todos, setTodos] = useState([]);
   const todoNameRef = useRef();
 
-  useEffect(() => {
-    const storedTodos = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
-    if (storedTodos) setTodos(storedTodos);
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todos));
-  }, [todos]);
+  function randomId(length = 9) {
+    return Math.random()
+      .toString(36)
+      .slice(2, 2 + length);
+  }
 
   function toggleTodo(id) {
     const newTodos = [...todos];
@@ -28,7 +25,7 @@ function App() {
     const name = todoNameRef.current.value;
     if (name === "") return;
     setTodos((prevTodos) => {
-      return [...prevTodos, { id: 3, name: name, complete: false }];
+      return [...prevTodos, { id: randomId(), name: name, complete: false }];
     });
     todoNameRef.current.value = null;
   }
@@ -38,7 +35,16 @@ function App() {
     setTodos(newTodos);
   }
 
-  //objheto rednerizado
+  useEffect(() => {
+    const storedTodos = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+    if (storedTodos) setTodos(storedTodos);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todos));
+  }, [todos]);
+
+  // objeto renderizado
   return (
     <center>
       <h1>App para todo list.</h1>
