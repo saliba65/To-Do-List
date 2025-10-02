@@ -44,6 +44,8 @@ function App() {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todos));
   }, [todos]);
 
+  const remainingTodos = todos.filter((todo) => !todo.complete).length;
+
   // objeto renderizado
   return (
     <center>
@@ -52,7 +54,7 @@ function App() {
       <input ref={todoNameRef} type="text" />
       <button onClick={handleAddTodo}>Add Todo</button>
       <button onClick={handleClearTodos}>Clear Complete</button>
-      <div>{todos.filter((todo) => !todo.complete).length} left to do</div>
+      <p>{remainingTodos} left to do</p>
     </center>
   );
 }
